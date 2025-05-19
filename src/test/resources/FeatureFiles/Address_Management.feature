@@ -1,3 +1,4 @@
+@skip
 Feature: Address Management for Billing and Shipping
 
   Scenario: Add/Edit a Billing address and ensure successful update

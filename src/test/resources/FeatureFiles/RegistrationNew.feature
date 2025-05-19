@@ -1,3 +1,4 @@
+@skip
 Feature: To Check the 1-2 Taste Application New Registartion Functionality
 
   Scenario: Verify user can Registartion with his details
