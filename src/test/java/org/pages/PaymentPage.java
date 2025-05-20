@@ -12,7 +12,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PaymentPage extends BaseClass {
 
-//	private By processToPaymentBtn = By.cssSelector("a.checkout-button");
 	private By billingDetails = By.xpath("//a [@class= 'nav-link active']");
 	private By shippingDetails = By.xpath("//a[contains(text(),'Shipping')]");
 	private By Toshippingbtn = By.xpath("//button[contains(@class, 'btnNext') and contains(text(), 'To shipping')]");
@@ -30,50 +29,43 @@ public class PaymentPage extends BaseClass {
 	private By qrCodePopup = By.id("qr_code");
 
 	private By viewtocartbtn = By.xpath("//a[@href='https://www.12taste.com/in/cart/']");
+	private By cartTotalAmount = By.cssSelector(".cart-subtotal .woocommerce-Price-amount bdi");
+	private By minOrderPopup = By.cssSelector(".woocommerce-info");
+	private By plusButton = By.xpath("//a[contains(@class, 'qtyBtn') and contains(@class, 'plus')]");
 
-	public void verifyOrderConfirmation() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // ✅ updated for Selenium 4
-        
-        // Wait until Order ID element is visible
-        WebElement orderIdElement = wait.until(ExpectedConditions.visibilityOfElementLocated(orderIdLocator));
-        
-        // Extract Order ID text
-        String orderId = orderIdElement.getText();
-        
-        // Print Order ID to console
-        System.out.println("Order Confirmation Page Opened. Order ID: " + orderId);
-    }
 	public void viewtocartbtn() {
 		clickElement(driver.findElement(viewtocartbtn));
 	}
 
 	public void clickProcessToPayment() {
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-		WebElement checkoutButton = driver.findElement(By.xpath("//a[contains(@class, 'checkout-button')]"));
-		Actions actions = new Actions(driver);
-		actions.moveToElement(checkoutButton).click().perform();
+	    try {
+	        // Wait until the button is clickable and visible
+	        WebElement checkoutButton = wait.until(ExpectedConditions.elementToBeClickable(
+	            By.xpath("//a[contains(@class, 'checkout-button') and not(contains(@class, 'disabled'))]")));
 
-		// clickElement(driver.findElement(processToPaymentBtn));
+	        // Optional: Scroll into view if it's not visible
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", checkoutButton);
+
+	        // Use JS click in case normal click doesn't work
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", checkoutButton);
+	        System.out.println("✅ Proceed to Payment button clicked.");
+	    } catch (Exception e) {
+	        System.out.println("❌ Failed to click Proceed to Payment button: " + e.getMessage());
+	        throw new RuntimeException("Checkout button not clickable or still disabled.");
+	    }
 	}
 
-	public void toBillingDetails() {
-
-	}
 
 	public void toShippingDetails() {
-
 		WebElement toShippingButton = driver.findElement(Toshippingbtn);
-
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].click();", toShippingButton);
-
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();", toShippingButton);
 	}
 
 	public void toOrderComments() {
 		WebElement toOrdercommments = driver.findElement(orderComments);
-
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].click();", toOrdercommments);
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();", toOrdercommments);
 	}
 
 	public void ordertypecomments() {
@@ -82,79 +74,112 @@ public class PaymentPage extends BaseClass {
 
 	public void topayment() {
 		WebElement topayment = driver.findElement(ToPayment);
-
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].click();", topayment);
-	}
-
-	public void selectPaymentOption(String option) {
-		switch (option.toLowerCase()) {
-		case "pay with upi":
-			clickElement(driver.findElement(payWithUPI));
-			break;
-		case "direct bank transfer":
-			clickElement(driver.findElement(bankTransfer));
-			break;
-		case "paytm payment gateway":
-			WebElement paytmpayment = driver.findElement(By.id("payment_method_paytm"));
-			// Use JavaScript to click the element
-			((JavascriptExecutor) driver).executeScript("arguments[0].click();", paytmpayment);
-			break;
-		// clickElement(driver.findElement(paytmPayment));
-		case "ccavenue":
-
-			WebElement paymentOption = driver.findElement(By.id("payment_method_ccavenue"));
-			// Use JavaScript to click the element
-			((JavascriptExecutor) driver).executeScript("arguments[0].click();", paymentOption);
-			break;
-		case "cash on delivery":
-			WebElement cod = driver.findElement(cashOnDelivery);
-
-			((JavascriptExecutor) driver).executeScript("arguments[0].click();", cod);
-			break;
-		default:
-			throw new IllegalArgumentException("Invalid Payment Option: " + option);
-		}
-	}
-
-	public void tickcheckbox() {
-		WebElement tick = driver.findElement(By.id("customer_pcod"));
-		((JavascriptExecutor) driver).executeScript("arguments[0].click();", tick);
-
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();", topayment);
 	}
 
 	public void acceptTermsAndConditions() {
-
 		WebElement terms = driver.findElement(termsAndConditions);
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", terms);
-
 	}
 
 	public void proceedToPayment() {
-		WebElement checkoutButton = driver.findElement(By.xpath("//button[@id='place_order']"));
+		WebElement checkoutButton = driver.findElement(proceedToPayment);
 		Actions actions = new Actions(driver);
 		actions.moveToElement(checkoutButton).click().perform();
+	}
 
-		//clickElement(driver.findElement(proceedToPayment));
+	public void verifyOrderConfirmation() {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		WebElement orderIdElement = wait.until(ExpectedConditions.visibilityOfElementLocated(orderIdLocator));
+		String orderId = orderIdElement.getText();
+		System.out.println("Order Confirmation Page Opened. Order ID: " + orderId);
 	}
 
 	public boolean isQRCodeDisplayed() {
 		return driver.findElement(qrCodePopup).isDisplayed();
 	}
-	
+
 	public void waitForPaymentSelection() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // ✅ updated for Selenium 4
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		System.out.println("Waiting for user to manually select a payment method...");
 
-	    System.out.println("Waiting for user to manually select a payment method...");
-
-	    wait.until(ExpectedConditions.or(
-	        ExpectedConditions.elementToBeSelected(driver.findElement(payWithUPI)),
-	        ExpectedConditions.elementToBeSelected(driver.findElement(bankTransfer)),
-	        ExpectedConditions.elementToBeSelected(driver.findElement(paytmPayment)),
-	        ExpectedConditions.elementToBeSelected(driver.findElement(ccAvenue)),
-	        ExpectedConditions.elementToBeSelected(driver.findElement(cashOnDelivery))
-	    ));
-
-	    System.out.println("Payment method detected. Resuming automation...");
+		wait.until(ExpectedConditions.or(ExpectedConditions.elementToBeSelected(driver.findElement(payWithUPI)),
+				ExpectedConditions.elementToBeSelected(driver.findElement(bankTransfer)),
+				ExpectedConditions.elementToBeSelected(driver.findElement(paytmPayment)),
+				ExpectedConditions.elementToBeSelected(driver.findElement(ccAvenue)),
+				ExpectedConditions.elementToBeSelected(driver.findElement(cashOnDelivery))));
 	}
+
+	// ✅ New logic for minimum order validation
+
+	public boolean isMinOrderValuePopupDisplayed() {
+		try {
+			return driver.findElement(minOrderPopup).isDisplayed();
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public String getMinOrderValuePopupText() {
+		try {
+			return driver.findElement(minOrderPopup).getText();
+		} catch (Exception e) {
+			return "";
+		}
+	}
+
+	public int getCartTotalAmount() {
+		try {
+			WebElement subtotalElement = driver
+					.findElement(By.xpath("//span[@class='money' and @data-title='Subtotal']//bdi"));
+			String amountText = subtotalElement.getText().replaceAll("[^0-9]", "");
+			return Integer.parseInt(amountText);
+		} catch (Exception e) {
+			System.out.println("Could not read cart total: " + e.getMessage());
+			return 0;
+		}
+	}
+
+	public void increaseQuantityUntilMinimumReached(int minimumAmount) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		int currentTotal = getCartTotalAmount();
+		int attempts = 0;
+
+		while (currentTotal < minimumAmount && attempts < 20) {
+			try {
+				WebElement plusBtn = wait
+						.until(ExpectedConditions.elementToBeClickable(By.cssSelector("a.qtyBtn.plus")));
+				plusBtn.click();
+
+				// Wait for subtotal to change
+				int previousTotal = currentTotal;
+
+				boolean isUpdated = wait.until(driver -> {
+					int newTotal = getCartTotalAmount();
+					return newTotal > previousTotal;
+				});
+
+				if (isUpdated) {
+					currentTotal = getCartTotalAmount();
+					System.out.println("Attempt " + (attempts + 1) + ": Cart total is ₹" + currentTotal);
+				} else {
+					System.out.println("Cart total did not increase. Possibly no effect from click.");
+					break;
+				}
+
+				attempts++;
+
+			} catch (Exception e) {
+				System.out.println("Error during quantity increase: " + e.getMessage());
+				break;
+			}
+		}
+
+		if (currentTotal < minimumAmount) {
+			throw new RuntimeException("❌ Could not reach ₹" + minimumAmount + ". Final total: ₹" + currentTotal);
+		}
+
+		System.out.println("✅ Final cart value: ₹" + currentTotal);
+	}
+
 }

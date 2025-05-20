@@ -19,16 +19,27 @@ public class PaymentSteps extends BaseClass {
 	@Given("User is on the cart page after adding items")
 	public void user_is_on_the_cart_page_after_adding_items() throws AWTException {
 		addtocart.user_navigate_to_the_product_listing_page();
-		addtocart.user_increase_the_quantity_using_the_plus_button();
+		// addtocart.user_increase_the_quantity_using_the_plus_button();
 		addtocart.user_click_on_the_Add_to_Cart_button();
-		// view to cart button
 		paymentpage.viewtocartbtn();
-
 	}
 
 	@When("User clicks on the Proceed to Checkout button")
 	public void user_clicks_on_the_Proceed_to_Checkout_button() {
+		int cartTotal = paymentpage.getCartTotalAmount();
+
+		if (cartTotal < 4000) {
+			System.out.println("Initial cart total ₹" + cartTotal + " is less than ₹4000. Increasing quantity...");
+			paymentpage.increaseQuantityUntilMinimumReached(4000);
+		}
+
 		paymentpage.clickProcessToPayment();
+
+		if (paymentpage.isMinOrderValuePopupDisplayed()) {
+			String popupText = paymentpage.getMinOrderValuePopupText();
+			System.out.println("Popup still showing after increasing quantity: " + popupText);
+			Assert.fail("Unable to proceed due to minimum order requirement not met.");
+		}
 	}
 
 	@Then("User is navigated to the Billing Details page")
@@ -36,7 +47,6 @@ public class PaymentSteps extends BaseClass {
 		String expectedurl = "https://www.12taste.com/in/checkout/";
 		String currentURL = getCurrentURL();
 		Assert.assertEquals("Both are same", expectedurl, currentURL);
-
 	}
 
 	@When("User enters valid billing details and clicks Continue")
@@ -58,7 +68,6 @@ public class PaymentSteps extends BaseClass {
 	public void user_is_navigated_to_the_Order_Comments_page() {
 		String expectedurl = "https://www.12taste.com/in/checkout/";
 		String currentURL = getCurrentURL();
-
 		Assert.assertEquals("User is in order comments page", expectedurl, currentURL);
 	}
 
@@ -72,19 +81,15 @@ public class PaymentSteps extends BaseClass {
 	public void user_is_navigated_to_the_Payment_Options_page() {
 		String expectedurl = "https://www.12taste.com/in/checkout/";
 		String currentURL = getCurrentURL();
-
 		Assert.assertEquals("User is in payment page", expectedurl, currentURL);
-
 	}
 
 	@When("User selects the Payment Method payment option")
 	public void user_selects_the_Payment_Method_payment_option() {
-		 System.out.println("Please select a payment method manually. Automation will resume once a method is selected.");
-
-		    // Wait for user to manually select a payment method
-		    paymentpage.waitForPaymentSelection();
-
-		    System.out.println("Payment method detected. Resuming automation...");
+		System.out
+				.println("Please select a payment method manually. Automation will resume once a method is selected.");
+		paymentpage.waitForPaymentSelection();
+		System.out.println("Payment method detected. Resuming automation...");
 	}
 
 	@When("User agrees to the terms and conditions")
@@ -95,12 +100,10 @@ public class PaymentSteps extends BaseClass {
 	@When("User clicks on the Process to Payment button")
 	public void user_clicks_on_the_Process_to_Payment_button() {
 		paymentpage.proceedToPayment();
-
 	}
 
 	@Then("A QR code should appear for UPI payments")
 	public void a_QR_code_should_appear_for_UPI_payments() {
 		paymentpage.verifyOrderConfirmation();
 	}
-
 }
