@@ -32,7 +32,7 @@ public class RegistrationNewValid extends BaseClass {
 
 	@When("the user enters as email")
 	public void the_user_enters_as_email() {
-		newuser.enterEmail("test_email@12taste.com");
+		newuser.enterEmail("testertaste713@gmail.com");
 	}
 
 	@When("the user clicks the register button")

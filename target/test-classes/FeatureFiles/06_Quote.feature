@@ -1,4 +1,3 @@
-@skip
 Feature: To Check then 1-2 taste Application Request a Quote Functionality
 
  Scenario: Request a Quote for a product

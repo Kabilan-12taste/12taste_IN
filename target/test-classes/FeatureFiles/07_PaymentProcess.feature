@@ -1,4 +1,3 @@
-@skip
 Feature: To Check the 1-2 Taste Payment Process 
 
   Scenario: User completes the payment process
