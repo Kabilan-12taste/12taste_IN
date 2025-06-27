@@ -69,7 +69,7 @@ public class PaymentPage extends BaseClass {
 	}
 
 	public void ordertypecomments() {
-		enterText(driver.findElement(ordertypecomments), "I need this product soon");
+		enterText(driver.findElement(ordertypecomments), "Testing Purpose, Please Ignore");
 	}
 
 	public void topayment() {
