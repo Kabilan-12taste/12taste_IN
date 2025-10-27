@@ -45,8 +45,8 @@ public class Quote extends BaseClass {
 
 	@Then("User fill in the quote request form with valid details")
 	public void user_fill_in_the_quote_request_form_with_valid_details() {
-		addtocartpage.fillQuoteForm("1-2 Taste", "Tester", "test_email@12taste.com", "9080672610", "1-2 taste",
-				"12345rty", "Tamil Nadu", "Test input");
+		addtocartpage.fillQuoteForm("Test", "Test", "test_email@12taste.com", "9080672610", "1-2 taste",
+				"12345rty", "Tamil Nadu", "Testing Purpose");
 	}
 
 	@Ignore

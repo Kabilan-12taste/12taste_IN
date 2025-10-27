@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Cucumber" time="142.796" tests="7" skipped="0" failures="1" errors="0">
-<testcase classname="To Check the 1-2 Taste Application Login Functionality" name="Verify user can log in with valid credentials" time="14.018">
-<system-out><![CDATA[
-Given the user is on the login page.........................................passed
-When the user enters a valid email..........................................passed
-And the user enters a valid password........................................passed
-And the user clicks the login button........................................passed
-Then the user should be redirected to the dashboard.........................passed
-]]></system-out>
-</testcase>
-<testcase classname="Address Management for Billing and Shipping" name="Add/Edit a Billing address and ensure successful update" time="25.562">
+<testsuite name="Cucumber" time="38.031" tests="2" skipped="0" failures="0" errors="0">
+<testcase classname="Address Management for Billing and Shipping" name="Add/Edit a Billing address and ensure successful update" time="19.542">
 <system-out><![CDATA[
 Given User is logged in to the application and is redirected to the dashboard.passed
 When User clicks on the Address menu and navigates to the Billing Address page.passed
@@ -18,90 +9,13 @@ And User clicks the Save Address button.....................................pass
 Then User should see a confirmation message.................................passed
 ]]></system-out>
 </testcase>
-<testcase classname="Address Management for Billing and Shipping" name="Add/Edit a Shipping address and ensure successful update" time="19.975">
+<testcase classname="Address Management for Billing and Shipping" name="Add/Edit a Shipping address and ensure successful update" time="18.335">
 <system-out><![CDATA[
 Given User is logged in to the application and is redirected to the dashboard.passed
 When User clicks on the Address menu and navigates to the Shipping Address page.passed
 And User fills in the Shipping Address fields with valid data...............passed
 And User clicks the Save Address button.....................................passed
 Then User should see the confirmation message...............................passed
-]]></system-out>
-</testcase>
-<testcase classname="To Check the 1-2 Taste Application Search Functionality" name="Search for a valid product and apply random filters" time="24.425">
-<system-out><![CDATA[
-Given User is on the search page............................................passed
-When User searches for a valid product......................................passed
-And User selects random one from Application Area...........................passed
-And User selects Best Selling from Default Sorting..........................passed
-And User selects random Dietary Certification filters.......................passed
-And User selects random Labels & Marks filters..............................passed
-And User applies the filters................................................passed
-Then User should see relevant search results................................passed
-]]></system-out>
-</testcase>
-<testcase classname="To Check then 1-2 taste Application Add to Cart Functionality" name="Add a product to the cart" time="30.167">
-<system-out><![CDATA[
-Given User navigate to the product listing page.............................passed
-When User increase the quantity using the plus button.......................passed
-And User click on the Add to Cart button....................................passed
-Then User should see a confirmation message with the product name...........passed
-And the product should be added to the cart.................................passed
-]]></system-out>
-</testcase>
-<testcase classname="To Check the 1-2 Taste Application Log Out Functionality" name="Verify user can log out with valid credentials" time="21.614">
-<system-out><![CDATA[
-Given the user logs into the application....................................passed
-When the user clicks the center not username logout button..................passed
-Then the user should be redirected to the login page........................passed
-Given the user logs into the application again..............................passed
-When the user clicks the side module logout button..........................passed
-Then the user should be redirected to the again login page..................passed
-]]></system-out>
-</testcase>
-<testcase classname="To Check the 1-2 Taste Application New Registartion Functionality" name="Verify user can Registartion with his details" time="6.83">
-<failure type="org.openqa.selenium.ElementClickInterceptedException" message="element click intercepted: Element &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary rounded-pill btn-lg w-100 woocommerce-Button woocommerce-button button woocommerce-form-register__submit&quot; name=&quot;register&quot; value=&quot;...&quot;&gt;Register&lt;/button&gt; is not clickable at point (1076, 656). Other element would receive the click: &lt;p&gt;...&lt;/p&gt;
-  (Session info: chrome=136.0.7103.114)
-Build info: version: '4.21.0', revision: '79ed462ef4'
-System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '23.0.2'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [3bb9eb17566e11591818acd9455be7c8, clickElement {id=f.9513081E6E1F25B5D6FC50E56DC3396B.d.02AC3B5ECC124617503AF41B2DB416FB.e.64}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 136.0.7103.114, chrome: {chromedriverVersion: 136.0.7103.94 (fa0be0b33deb..., userDataDir: C:\Users\Lenovo\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:59006}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:59006/devtoo..., se:cdpVersion: 136.0.7103.114, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Element: [[ChromeDriver: chrome on windows (3bb9eb17566e11591818acd9455be7c8)] -&gt; name: register]
-Session ID: 3bb9eb17566e11591818acd9455be7c8">
-<![CDATA[org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element <button type="submit" class="btn btn-primary rounded-pill btn-lg w-100 woocommerce-Button woocommerce-button button woocommerce-form-register__submit" name="register" value="...">Register</button> is not clickable at point (1076, 656). Other element would receive the click: <p>...</p>
-  (Session info: chrome=136.0.7103.114)
-Build info: version: '4.21.0', revision: '79ed462ef4'
-System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '23.0.2'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [3bb9eb17566e11591818acd9455be7c8, clickElement {id=f.9513081E6E1F25B5D6FC50E56DC3396B.d.02AC3B5ECC124617503AF41B2DB416FB.e.64}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 136.0.7103.114, chrome: {chromedriverVersion: 136.0.7103.94 (fa0be0b33deb..., userDataDir: C:\Users\Lenovo\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:59006}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:59006/devtoo..., se:cdpVersion: 136.0.7103.114, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Element: [[ChromeDriver: chrome on windows (3bb9eb17566e11591818acd9455be7c8)] -> name: register]
-Session ID: 3bb9eb17566e11591818acd9455be7c8
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485)
-	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:190)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:518)
-	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
-	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:76)
-	at org.base.BaseClass.clickElement(BaseClass.java:50)
-	at org.pages.RegisterNewUser.clickRegisterButton(RegisterNewUser.java:35)
-	at org.stepdefinitions.RegistrationNewValid.the_user_clicks_the_register_button(RegistrationNewValid.java:40)
-	at ✽.the user clicks the register button(file:///C:/Users/Lenovo/eclipse-workspace/12TasteIN/src/test/resources/FeatureFiles/10_Registration.feature:8)
-]]>
-</failure>
-<system-out><![CDATA[
-Given the user is on the registration page..................................passed
-When the user enters as first name..........................................passed
-And the user enters last name...............................................passed
-And the user enters as email................................................passed
-And the user clicks the register button.....................................failed
-Then the user should be redirected to the confirmation page.................skipped
 ]]></system-out>
 </testcase>
 </testsuite>
